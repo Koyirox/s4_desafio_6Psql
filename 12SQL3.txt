@@ -1,0 +1,89 @@
+Parte 1:
+1. Crear una base de datos llamada movies.
+
+    CREATE DATABASE movies;
+
+2. Crear la tabla movie con las columnas id y name.
+
+    CREATE TABLE movies (id INTEGER, name VARCHAR(30));
+
+3. Ingresar la película "El Rey León".
+
+    INSERT INTO movies (id, name) VALUES (1, 'El Rey Leon'); 
+
+4. Ingresar la película "Terminator II".
+
+    INSERT INTO movies (id, name) VALUES (2, 'Terminator II');
+
+5. Alterar la tabla películas para agregar el año.
+
+    ALTER TABLE movie ADD COLUMN year integer; 
+
+6. Cambiar los datos de todas las películas existentes a 1984.
+
+    UPDATE movies SET year = 1984;
+
+7. Borrar la película Terminator II
+
+    DELETE FROM movies WHERE id = 2;
+
+8. Crear un usuario nuevo en la base de datos.
+
+    CREATE ROLE readaccess;
+
+9. Asignarle un rol que sólo permite hacer consultas select (no podrá ingresar).
+
+    GRANT USAGE ON SCHEMA public TO readaccess; 
+    GRANT SELECT ON ALL TABLES IN SCHEMA public TO readaccess;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO readaccess;
+    CREATE USER sqliii WITH PASSWORD 'sql3';
+    GRANT readaccess TO sql3;
+
+10. Cambiar de usuario en la base de datos.
+
+    psql -U sql3;
+
+
+Parte 2:
+
+12. Ingresar 5 películas más, con nombres y años distintos.
+
+    INSERT INTO movies VALUES (2,'apelicula 2', 1998), (3, 'epelicula 3', 1989), (4, 'bpelicula 4', 1976), (5, 'cpelicula 5', 1998), (6, 'fpelicula 6', 1996);
+
+13. Devolver las primeras 3 películas (ordenadas alfabéticamente)
+
+    SELECT * FROM movies ORDER BY name ASC LIMIT 3;
+
+
+14. Devolver las últimas 3 películas (ordenadas por año)
+
+    SELECT * FROM movies ORDER BY year DESC LIMIT 3;
+
+15. Contar la cantidad de películas en la base de datos
+
+    SELECT count(id) FROM movies;
+
+16. Contar la cantidad de películas por año.
+
+    SELECT year, count(year) FROM movies GROUP BY year;
+
+17. Alterar la tabla para agregar la categoría de la película
+
+    ALTER TABLE movies ADD COLUMN category varchar (20);
+
+18. Agregar categorías a todas las películas existentes
+
+    all;
+    UPDATE movies SET category = 'familiar';
+
+    each one (redaccion! "a cada una de las peliculas"):
+    UPDATE movies SET category = 'infantil' WHERE id = 1;
+    UPDATE movies SET category = 'drama' WHERE id = 2;
+    UPDATE movies SET category = 'police' WHERE id = 3;
+    UPDATE movies SET category = 'drama' WHERE id = 4;
+    UPDATE movies SET category = 'police' WHERE id = 5;
+    UPDATE movies SET category = 'crime' WHERE id = 6;
+
+19. Obtener un listado de las categorías (sin repeticiones)
+
+    SELECT distinct(category) FROM movies;
